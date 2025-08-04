@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Mail, Lock, Eye, EyeOff, Truck, AlertCircle } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, AlertCircle } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import logo from "../assets/VRSLogo.png";
 
 const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "driver@gmail.com",
+    password: "Driver@123",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -27,9 +27,10 @@ const LoginPage: React.FC = () => {
     setIsLoading(true);
     setError("");
 
+    // Simulate API call delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const success = await login(formData.email, formData.password); // ✅ Use 'await'
+    const success = login(formData.email, formData.password);
 
     if (success) {
       navigate("/dashboard");

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { User, Mail, Lock, Eye, EyeOff, Truck } from "lucide-react";
+import { User, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import logo from "../assets/VRSLogo.png";
 
 const SignupPage: React.FC = () => {
+  const navigate = useNavigate(); // ✅ Add this
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -16,8 +17,6 @@ const SignupPage: React.FC = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-
-  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -62,44 +61,23 @@ const SignupPage: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setSuccessMessage("");
-
-    if (!validateForm()) {
+    setSuccessMessage('');
+    
+    if (validateForm()) {
+      // Simulate API call delay
+      setTimeout(() => {
+        setSuccessMessage('Account created successfully! Redirecting to login...');
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
+        setIsLoading(false);
+      }, 1500);
+    } else {
       setIsLoading(false);
-      return;
     }
-
-    try {
-      const response = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.fullName,
-          email: formData.email,
-          phone: formData.phone, // ✅ Send phone
-          password: formData.password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccessMessage(
-          "Account created successfully! Redirecting to login..."
-        );
-        setTimeout(() => navigate("/login"), 2000);
-      } else {
-        setErrors({ email: data.message || "Signup failed" });
-      }
-    } catch (error) {
-      console.error("Signup error:", error);
-      setErrors({ email: "Server error during signup" });
-    }
-
-    setIsLoading(false);
   };
 
   return (
@@ -298,3 +276,7 @@ const SignupPage: React.FC = () => {
 };
 
 export default SignupPage;
+
+
+
+

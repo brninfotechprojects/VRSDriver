@@ -8,7 +8,6 @@ import {
   Clock,
   User,
   Calendar,
-  Truck,
   Navigation,
   Phone,
   IndianRupee,
@@ -18,22 +17,15 @@ import {
   Menu,
   X,
   CheckCircle,
-  AlertCircle,
   Route,
   Home,
   Wallet,
   HelpCircle,
   RotateCcw,
-  Play,
-  Pause,
   MessageCircle,
   CreditCard,
   History,
-  Settings,
-  Bell,
   Shield,
-  FileText,
-  Award,
   TrendingUp,
   Battery,
   Wifi,
@@ -673,7 +665,7 @@ const Dashboard: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs sm:text-sm font-medium text-gray-600">
-                Today's Deliveries
+                Today's Rides
               </p>
               <p className="text-xl sm:text-2xl font-bold text-blue-600">
                 {upcomingPickups.length + dropOffs.length}
@@ -987,7 +979,7 @@ const Dashboard: React.FC = () => {
             <p className="text-xl sm:text-2xl font-bold text-blue-600">
               {driverStats.totalDeliveries}
             </p>
-            <p className="text-xs sm:text-sm text-gray-600">Total Deliveries</p>
+            <p className="text-xs sm:text-sm text-gray-600">Total Rides</p>
           </div>
           <div className="text-center">
             <p className="text-xl sm:text-2xl font-bold text-green-600 flex items-center justify-center">
@@ -1045,11 +1037,11 @@ const Dashboard: React.FC = () => {
                 style={{ objectFit: "contain", height: "90px" }}
                 src={logo}
               ></img>
-              <div className="sm:hidden">
+              {/* <div className="sm:hidden">
                 <h1 className="text-lg font-bold text-gray-800">
                   VRS Logistics
                 </h1>
-              </div>
+              </div> */}
             </div>
 
             {/* Desktop Navigation */}
